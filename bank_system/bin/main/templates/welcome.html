@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <title>赛事界面</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+         margin:0 auto;
+        }
+        a{
+            text-align: center;
+        }
+        #sidebar { 
+            float:left; width:15%; height:500px;
+            margin-right: 10px;
+            margin-top:10px; 
+			
+        }
+        #mainrigth{
+            float: left;
+            width: 83%;
+            height: 500px;
+            margin:0 auto;
+            margin-top:10px;
+        }
+        #page{
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div >
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid"> 
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">比赛系统</a>
+    </div>
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="查找比赛信息">
+        </div>
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+    <ul class="nav navbar-nav navbar-right"> 
+    		<li><a href="#"><span class="glyphicon " ></span>欢迎您：<label th:text="${session.sponsor.sponsorId}"></label><label th:text="${session.sponsor.sponsorName}"></label></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人信息</a></li> 
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
+        </ul> 
+    </div>
+</nav>
+</div>
+<div id="sidebar">
+<a href="#" class="list-group-item disabled">导航栏</a>
+<a th:href="@{matchList(id=${session.sponsor.sponsorId})}" class="list-group-item active">赛事过程</a>
+<a th:href="@{AddMatch}" class="list-group-item">赛事发布</a>
+<a href="./赛事结果.html" class="list-group-item">赛事结果</a>
+</div>
+
+    <div id="mainrigth">
+        <ul class="breadcrumb">
+          <li><a href="#">主页</a></li>
+          <li><a href="#">赛事发布</a></li>
+          <li class="active">比赛信息列表</li>
+        </ul>
+        <table class="table table-hover">
+        <thead>
+           <tr>
+             <th>序号</th>
+             <th>比赛名称</th>
+             <th>比赛类型</th>
+             <th>比赛时间</th>
+             <th>比赛地点</th>
+             <th>操作</th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr  th:each="match,status : ${matchList}"> 
+                  <td th:text="${status.count}"></td> 
+		          <td th:text="${match.matchName}"></td>  
+		          <td th:text="${match.matchType}"></td>
+		          <td th:text="${match.time}"></td> 
+		          <td th:text="${match.matchAddress}"></td> 
+		          <td>
+		          	<a th:href="@{matchEditInfo(matchId=${match.matchId},sponsorId=${session.sponsor.sponsorId})}" class="btn btn-info btn-sm" style="background-color:gray">
+          				<span class="glyphicon glyphicon-wrench"></span> 修改
+        			</a>
+        			<a th:href="@{matchDelete(matchId=${match.matchId})}" class="btn btn-info btn-sm" style="background-color:red">
+          				<span class="glyphicon glyphicon-trash"></span> 删除
+        			</a>
+        		  </td>                           
+           </tr>                    
+        </tbody>
+        </table>
+        <div id="page">
+             <ul class="pagination">
+               <li><a href="#">&laquo;</a></li>
+               <li class="active"><a href="#">1</a></li>
+               <li ><a href="#">2</a></li>
+               <li><a href="#">3</a></li>
+               <li><a href="#">4</a></li>
+               <li><a href="#">5</a></li>
+               <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

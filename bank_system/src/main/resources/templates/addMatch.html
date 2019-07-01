@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <title>赛事界面</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+         margin:0 auto;
+        }
+        a{
+            text-align: center;
+        }
+        #sidebar { 
+            float:left; width:15%; height:500px;
+            margin-right: 10px;
+            margin-top:10px; 
+			
+        }
+        #mainrigth{
+            float: left;
+            width: 83%;
+            height: 500px;
+            margin:0 auto;
+            margin-top:10px;
+        }
+        #page{
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div >
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid"> 
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">比赛系统</a>
+    </div>
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="查找比赛信息">
+        </div>
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+    <ul class="nav navbar-nav navbar-right"> 
+    		<li><a href="#"><span class="glyphicon " ></span>欢迎您：<label th:text="${session.sponsor.sponsorId}"></label><label th:text="${session.sponsor.sponsorName}"></label></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人信息</a></li> 
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
+        </ul> 
+    </div>
+</nav>
+</div>
+<div id="sidebar">
+<a href="#" class="list-group-item disabled">导航栏</a>
+<a th:href="@{matchList(id=${session.sponsor.sponsorId})}" class="list-group-item">赛事过程</a>
+<a th:href="@{AddMatch}" class="list-group-item active">赛事发布</a>
+<a href="./赛事结果.html" class="list-group-item">赛事结果</a>
+</div>
+
+    <div id="mainrigth">
+        <ul class="breadcrumb">
+          <li><a href="#">主页</a></li>
+          <li><a href="#">赛事发布</a></li>
+          <li class="active">赛事添加</li>
+        </ul>
+        <form method="post" action="addMatch" class="form-horizontal" role="form" style="margin-left: -80px">
+			
+			<input type="hidden" class="form-control" name="sponsorId" placeholder="请输入比赛名字"  required="required" th:value="${session.sponsor.sponsorId}">
+				
+			<div class="form-group">
+				<label for="firstname" class="col-sm-2 control-label">比赛名字</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="matchName" 
+						   placeholder="请输入比赛名字"  required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="lastname" class="col-sm-2 control-label">比赛类型</label>
+				<div class="col-sm-8">
+					<select class="form-control" name="matchType">
+						<option>计算机类</option>
+						<option>运动类</option>
+						<option>辩论类</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="firstname" class="col-sm-2 control-label">比赛时间</label>
+				<div class="col-sm-8">
+					<input type="date" class="form-control" name="matchDate" 
+						   placeholder="请输入比赛日期"  required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="firstname" class="col-sm-2 control-label">比赛地点</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="matchAddress" 
+						   placeholder="请输入比赛地点"  required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-8">
+					<button type="submit" class="btn btn-default">添加</button>
+					<button type="reset" class="btn btn-default">重置</button>
+				</div>
+			</div>
+		</form>
+        
+    </div>
+</body>
+</html>
