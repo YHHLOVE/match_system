@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @MapperScan("com.example.mappr")
 @SpringBootApplication
-public class BankSystemApplication {
+public    class BankSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankSystemApplication.class, args);
